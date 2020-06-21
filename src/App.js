@@ -12,8 +12,8 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
-import DetailsForm from './DetailsForm';
-import Overview from './Overview';
+import DetailsForm from './components/DetailsForm';
+import Overview from './components/Overview';
 // import Review from './Review';
 
 function Copyright() {
