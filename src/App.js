@@ -92,6 +92,7 @@ export default function Checkout() {
     period: 0,
     lengthOfTime: 0,
   });
+  console.log(data);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
