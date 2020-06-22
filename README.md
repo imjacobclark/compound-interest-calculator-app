@@ -2,7 +2,11 @@
 
 Calculate compound interest. 
 
-Progressive Web App, Material UI, React.
+Capacitor, Progressive Web App, Material UI, React.
+
+* Web
+* iOS
+* Android
 
 <img src="./docs/images/iOS.png" width="300px" />
 
