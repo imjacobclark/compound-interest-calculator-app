@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 
 export default function Overview({data}) {
-  // const [value, setValue] = useState({ hits: [] });
+  const [calculation, setValue] = useState(1);
  
-  // useEffect(async () => {
-  //   const result = await fetch(
-  //     `https://3jvichlsm2.execute-api.eu-west-2.amazonaws.com/dev/calculate/api?principal=${data.balance}&interestRate=${(data.interest/100)}&monthlyAmount=${0.00}&termLength=${data.lengthOfTime}`,
-  //   );
- 
-  //   setValue(result.data);
-  // });
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(
+        `https://3jvichlsm2.execute-api.eu-west-2.amazonaws.com/dev/calculate/api?principal=${data.balance}&interestRate=${(data.interest/100)}&monthlyAmount=${0.00}&termLength=${data.lengthOfTime}`,
+      ).then(response => response.json())
 
-  let calculation = parseInt(data.balance) + parseInt(Math.round((data.balance * (Math.pow(1 + (data.interest/100) / data.period, data.period * data.lengthOfTime) - 1))));
+      setValue(result.value);
+    }
+    fetchData();
+  });
+
+  // let calculation = parseInt(data.balance) + parseInt(Math.round((data.balance * (Math.pow(1 + (data.interest/100) / data.period, data.period * data.lengthOfTime) - 1))));
 
   return (
     <React.Fragment>

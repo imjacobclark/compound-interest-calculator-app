@@ -11,10 +11,11 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import DetailsForm from './components/DetailsForm';
 import Overview from './components/Overview';
-// import Review from './Review';
 
 function Copyright() {
   return (
@@ -23,6 +24,7 @@ function Copyright() {
       <Link color="inherit" href="https://jacobclark.xyz/">
         Jacob Clark
       </Link>{' '}
+      {'& Chris Grounds '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -32,6 +34,9 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
   layout: {
     width: 'auto',
@@ -77,6 +82,13 @@ function getStepContent(step, setData, data) {
     case 2:
       // Coming soon...
       // return <Visualise />;
+      return (
+      <div>
+        <Typography variant="h6" gutterBottom>Visualisation</Typography>
+        <Typography variant="body1" gutterBottom>
+          Coming soon...
+        </Typography>
+      </div>)
     default:
       throw new Error('Unknown step');
   }
@@ -87,12 +99,11 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const [data, setData] = React.useState({
-    balance: 0,
-    interest: 0,
-    period: 0,
-    lengthOfTime: 0,
+    balance: undefined,
+    interest: undefined,
+    period: undefined,
+    lengthOfTime: undefined,
   });
-  console.log(data);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -107,6 +118,9 @@ export default function Checkout() {
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
             Compound Interest
           </Typography>
