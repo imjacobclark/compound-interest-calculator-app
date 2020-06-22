@@ -14,7 +14,7 @@ jobs:
           working-directory: ./android
     steps:
     - uses: actions/checkout@v2
-    - run: ./gradlew clean build -b capacitor/build.gradle -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
+    - run: ./gradlew clean build -b build.gradle -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
