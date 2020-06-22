@@ -4,6 +4,10 @@ Calculate compound interest.
 
 Progressive Web App, Material UI, React.
 
+<img src="./docs/images/ios.png" width="300px" />
+
+## Developing
+
 This app is a Create React App, usual scripts apply:
 
 ```javascript
@@ -13,7 +17,7 @@ $ yarn build
 $ yarn eject
 ```
 
-# Building
+## Building
 
 `build` directory can be statically hosted on a web server or you can produce an iOS or Android build.
 
