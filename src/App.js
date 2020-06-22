@@ -34,6 +34,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
+    paddingTop: 'env(safe-area-inset-top)'
   },
   menuButton: {
     marginRight: theme.spacing(2),
