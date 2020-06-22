@@ -20,7 +20,7 @@ jobs:
     - run: yarn install
     - run: yarn build
     - run: ./gradlew clean build -b build.gradle -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
-    - run: ls -la
+    - run: ls -la ./app
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
