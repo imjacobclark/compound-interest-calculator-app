@@ -25,7 +25,7 @@ jobs:
     - run: ls -la ./app/build
     - run: ls -la ./app/build/outputs
     - run: ls -la ./app/build/outputs/apk
-    - run: ls -la ./app/build/outputs/apk/releases/
+    - run: ls -la ./app/build/outputs/apk/release/
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
