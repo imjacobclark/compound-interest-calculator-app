@@ -12,3 +12,12 @@ $ yarn test
 $ yarn build
 $ yarn eject
 ```
+
+# Building
+
+`build` directory can be statically hosted on a web server or you can produce an iOS or Android build.
+
+```javascript
+$ yarn ios
+$ yarn android
+```
