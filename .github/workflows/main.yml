@@ -14,18 +14,18 @@ jobs:
           working-directory: ./android
     steps:
     - uses: actions/checkout@v2
-#     - uses: actions/setup-node@v1
-#       with:
-#         node-version: 14.x
-#     - run: yarn install
-#     - run: yarn build
-#     - run: ./gradlew clean build -b build.gradle -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
-#     - run: ls -la
-#     - run: ls -la ./app
-#     - run: ls -la ./app/build
-#     - run: ls -la ./app/build/outputs
-#     - run: ls -la ./app/build/outputs/apk
-#     - run: ls -la ./app/build/outputs/apk/release/
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: yarn install
+    - run: yarn build
+    - run: ./gradlew clean build -b build.gradle -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
+    - run: ls -la
+    - run: ls -la ./app
+    - run: ls -la ./app/build
+    - run: ls -la ./app/build/outputs
+    - run: ls -la ./app/build/outputs/apk
+    - run: ls -la ./app/build/outputs/apk/release/
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -43,6 +43,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./README.md
-        asset_name: README.md
-        asset_content_type: text/plain
+        asset_path: ./android/app/build/outputs/apk/release/app-release-unsigned.apk
+        asset_name: app-release-unsigned.apk
+        asset_content_type: application/vnd.android.package-archive
