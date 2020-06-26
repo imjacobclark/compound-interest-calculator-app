@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import DetailsForm from './components/DetailsForm';
 import Overview from './components/Overview';
+import Visualise from './components/Visualise';
 
 function Copyright() {
   return (
@@ -77,19 +78,10 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Details', 'Overview', 'Visualisation'];
 
-// Coming soon...
-// return <Visualise />;
 const stepContent = {
   0: (setData, data) => <DetailsForm setData={setData} data={data} />,
-  1: (_, data) => <Overview data={data} />,
-  2: (_setData, _data) => (
-    <div>
-      <Typography variant="h6" gutterBottom>Visualisation</Typography>
-      <Typography variant="body1" gutterBottom>
-        Coming soon...
-      </Typography>
-    </div>
-  )
+  1: (setData, data) => <Overview setData={setData} data={data} />,
+  2: (_setData, data) => <Visualise data={data}/>
 }
 
 function getStepContent(step, setData, data) {
@@ -110,6 +102,8 @@ export default function Checkout() {
     monthlyPayments: undefined,
     period: undefined,
     lengthOfTime: undefined,
+    value: undefined,
+    history: [],
   });
 
   const handleNext = () => {

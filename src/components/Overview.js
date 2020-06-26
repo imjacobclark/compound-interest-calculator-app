@@ -6,7 +6,7 @@ const formatCurrency = number => {
   return new Intl.NumberFormat('en-gb', { style: 'currency', currency: 'GBP' }).format(number);
 }
 
-export default function Overview({data}) {
+export default function Overview({data, setData}) {
   const [calculation, setValue] = useState("Loading");
  
   useEffect(() => {
@@ -16,6 +16,7 @@ export default function Overview({data}) {
       ).then(response => response.json())
 
       setValue(result.value);
+      setData({...data, value: result.value, history: result.history})
     }
     fetchData();
   });
