@@ -78,17 +78,17 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Details', 'Overview', 'Visualisation'];
 
-const stepContent = {
-  0: (setData, data) => <DetailsForm setData={setData} data={data} />,
-  1: (setData, data) => <Overview setData={setData} data={data} />,
-  2: (_setData, data) => <Visualise data={data}/>
-}
+const stepContents = [
+  (setData, data) => <DetailsForm setData={setData} data={data} />,
+  (setData, data) => <Overview setData={setData} data={data} />,
+  (_setData, data) => <Visualise data={data}/>
+];
 
-function getStepContent(step, setData, data) {
+function getStepContent(step, setData, data, setActiveStep) {
   try {
-    return stepContent[step](setData, data);
-  } catch (error) {
-    throw new Error('Unknown step');
+    return stepContents[step](setData, data);
+  } catch (_e) {
+    return setActiveStep(0);
   }
 }
 
@@ -106,13 +106,8 @@ export default function Checkout() {
     history: [],
   });
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+  const handleNext = () => setActiveStep(activeStep + 1);
+  const handleBack = () => setActiveStep(activeStep - 1);
 
   return (
     <React.Fragment>
@@ -140,7 +135,7 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {getStepContent(activeStep, setData, data)}
+            {getStepContent(activeStep, setData, data, setActiveStep)}
             <div className={classes.buttons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>

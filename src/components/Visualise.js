@@ -8,8 +8,8 @@ import Switch from '@material-ui/core/Switch';
 import { Line } from 'react-chartjs-2';
 
 export default function Visualise ({data}) {
-  const years = [...data.history.map(dataPoint => dataPoint.year), data.history.length + 1]
-  const values = [...data.history.map(dataPoint => dataPoint.value), data.value]
+  const years = [...data.history.map(dataPoint => dataPoint.year), data.history.length + 1];
+  const values = [...data.history.map(dataPoint => dataPoint.value), data.value];
 
   const [fill, setFill] = useState(false);
 
