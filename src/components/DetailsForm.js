@@ -35,6 +35,17 @@ export default function AddressForm({setData, data}) {
         <Grid item xs={12}>
           <TextField
             required
+            id="monthlyPayments"
+            name="monthlyPayments"
+            value={data.monthlyPayments || ''}
+            label="Additional monthly payments"
+            fullWidth
+            onChange={(event) => {setData({...data, monthlyPayments: event.target.value})}}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
             id="period"
             name="period"
             value={data.period || ''}

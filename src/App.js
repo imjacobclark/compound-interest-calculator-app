@@ -24,7 +24,10 @@ function Copyright() {
       <Link color="inherit" href="https://jacobclark.xyz/">
         Jacob Clark
       </Link>{' '}
-      {'& Chris Grounds '}
+      {'& '}
+      <Link color="inherit" href="http://github.com/chrisgrounds/">
+        Chris Grounds
+      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
