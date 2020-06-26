@@ -5,14 +5,14 @@ import Typography from '@material-ui/core/Typography';
 import { Line } from 'react-chartjs-2';
 
 export default function Visualise ({data}) {
-  const years = data.history.map(dataPoint => dataPoint.year)
-  const values = data.history.map(dataPoint => dataPoint.value)
+  const years = [...data.history.map(dataPoint => dataPoint.year), data.history.length + 1]
+  const values = [...data.history.map(dataPoint => dataPoint.value), data.value]
 
   const graphData = {
     labels: years,
     datasets: [
       {
-        label: 'My First dataset',
+        label: 'Compound growth over time',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -35,14 +35,32 @@ export default function Visualise ({data}) {
     ]
   }
 
+  const chartOptions = {
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Years"
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Currency"
+        }
+      }]
+    }
+  }
+
   return (
     <div>
       <Typography variant="h6" gutterBottom>Visualisation</Typography>
       <Line
         data={graphData}
-        width={100}
-        height={50}
-        options={{ maintainAspectRatio: false }}
+        width={80}
+        height={250}
+        options={chartOptions}
       />
     </div>
   );
