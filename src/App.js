@@ -74,24 +74,26 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Details', 'Overview', 'Visualisation'];
 
+// Coming soon...
+// return <Visualise />;
+const stepContent = {
+  0: (setData, data) => <DetailsForm setData={setData} data={data} />,
+  1: (_, data) => <Overview data={data} />,
+  2: (_setData, _data) => (
+    <div>
+      <Typography variant="h6" gutterBottom>Visualisation</Typography>
+      <Typography variant="body1" gutterBottom>
+        Coming soon...
+      </Typography>
+    </div>
+  )
+}
+
 function getStepContent(step, setData, data) {
-  switch (step) {
-    case 0:
-      return <DetailsForm setData={setData} data={data} />;
-    case 1:
-      return <Overview data={data} />;
-    case 2:
-      // Coming soon...
-      // return <Visualise />;
-      return (
-      <div>
-        <Typography variant="h6" gutterBottom>Visualisation</Typography>
-        <Typography variant="body1" gutterBottom>
-          Coming soon...
-        </Typography>
-      </div>)
-    default:
-      throw new Error('Unknown step');
+  try {
+    return stepContent[step](setData, data);
+  } catch (error ) {
+    throw new Error('Unknown step');
   }
 }
 
