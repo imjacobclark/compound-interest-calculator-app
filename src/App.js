@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import DetailsForm from './components/DetailsForm';
 import Overview from './components/Overview';
+import Visualise from './components/Visualise';
 
 function Copyright() {
   return (
@@ -24,7 +25,10 @@ function Copyright() {
       <Link color="inherit" href="https://jacobclark.xyz/">
         Jacob Clark
       </Link>{' '}
-      {'& Chris Grounds '}
+      {'& '}
+      <Link color="inherit" href="http://github.com/chrisgrounds/">
+        Chris Grounds
+      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -74,24 +78,17 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Details', 'Overview', 'Visualisation'];
 
+const stepContent = {
+  0: (setData, data) => <DetailsForm setData={setData} data={data} />,
+  1: (setData, data) => <Overview setData={setData} data={data} />,
+  2: (_setData, data) => <Visualise data={data}/>
+}
+
 function getStepContent(step, setData, data) {
-  switch (step) {
-    case 0:
-      return <DetailsForm setData={setData} data={data} />;
-    case 1:
-      return <Overview data={data} />;
-    case 2:
-      // Coming soon...
-      // return <Visualise />;
-      return (
-      <div>
-        <Typography variant="h6" gutterBottom>Visualisation</Typography>
-        <Typography variant="body1" gutterBottom>
-          Coming soon...
-        </Typography>
-      </div>)
-    default:
-      throw new Error('Unknown step');
+  try {
+    return stepContent[step](setData, data);
+  } catch (error) {
+    throw new Error('Unknown step');
   }
 }
 
@@ -102,8 +99,11 @@ export default function Checkout() {
   const [data, setData] = React.useState({
     balance: undefined,
     interest: undefined,
+    monthlyPayments: undefined,
     period: undefined,
     lengthOfTime: undefined,
+    value: undefined,
+    history: [],
   });
 
   const handleNext = () => {
