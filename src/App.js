@@ -95,7 +95,7 @@ const stepContent = {
 function getStepContent(step, setData, data) {
   try {
     return stepContent[step](setData, data);
-  } catch (error ) {
+  } catch (error) {
     throw new Error('Unknown step');
   }
 }
@@ -107,6 +107,7 @@ export default function Checkout() {
   const [data, setData] = React.useState({
     balance: undefined,
     interest: undefined,
+    monthlyPayments: undefined,
     period: undefined,
     lengthOfTime: undefined,
   });
