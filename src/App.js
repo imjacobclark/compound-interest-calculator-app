@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   list: {
-    width: 3002,
+    width: 200,
   },
   fullList: {
     width: 'auto',
