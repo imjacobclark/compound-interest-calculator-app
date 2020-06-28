@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/static/js/main.d80b16b5.chunk.js",
-    "main.js.map": "/static/js/main.d80b16b5.chunk.js.map",
+    "main.js": "/static/js/main.7583d9a1.chunk.js",
+    "main.js.map": "/static/js/main.7583d9a1.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.580eecb1.js",
     "runtime-main.js.map": "/static/js/runtime-main.580eecb1.js.map",
     "stencil-polyfills-css-shim.js": "/static/js/stencil-polyfills-css-shim.cd918f0f.chunk.js",
@@ -28,7 +28,7 @@
     "static/js/12.523e2168.chunk.js": "/static/js/12.523e2168.chunk.js",
     "static/js/12.523e2168.chunk.js.map": "/static/js/12.523e2168.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.05350a6f00df4d1970269cbf70ea4939.js": "/precache-manifest.05350a6f00df4d1970269cbf70ea4939.js",
+    "precache-manifest.488da7af87fc8cd6fcadd97796cb3ed4.js": "/precache-manifest.488da7af87fc8cd6fcadd97796cb3ed4.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/10.a1804587.chunk.js.LICENSE.txt": "/static/js/10.a1804587.chunk.js.LICENSE.txt",
@@ -40,6 +40,6 @@
     "static/js/runtime-main.580eecb1.js",
     "static/js/4.cfc708ba.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.d80b16b5.chunk.js"
+    "static/js/main.7583d9a1.chunk.js"
   ]
 }

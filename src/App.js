@@ -88,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: 200,
+    paddingTop: 'env(safe-area-inset-top)'
   },
   fullList: {
     width: 'auto',
@@ -184,6 +185,7 @@ export default function Checkout() {
         open={data["left"]}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
+        disableSwipeToOpen={false}
       >
         {list("left")}
       </SwipeableDrawer>
