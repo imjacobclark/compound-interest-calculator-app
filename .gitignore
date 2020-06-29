@@ -104,3 +104,6 @@ dist
 .tern-port
 
 android/keystore.properties
+
+
+.DS_Store
