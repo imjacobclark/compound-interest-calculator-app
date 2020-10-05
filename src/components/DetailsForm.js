@@ -32,7 +32,7 @@ export default function AddressForm({setData, data}) {
               required
               id="interestRate"
               name="interestRate"
-              label="Interest rate"
+              label="Interest rate (%)"
               value={data.interest || ''}
               fullWidth
               onChange={(event) => {setData({...data, interest: event.target.value})}}
@@ -59,7 +59,7 @@ export default function AddressForm({setData, data}) {
               id="period"
               name="period"
               value={data.period || ''}
-              label="How often interest is applied"
+              label="How often interest is applied (per year)"
               fullWidth
               onChange={(event) => {setData({...data, period: event.target.value})}}
             />
@@ -71,7 +71,7 @@ export default function AddressForm({setData, data}) {
               required
               id="lengthOfTime"
               name="lengthOfTime"
-              label="Length of time invested"
+              label="Length of time invested (years)"
               value={data.lengthOfTime || ''}
               fullWidth
               onChange={(event) => {setData({...data, lengthOfTime: event.target.value})}}

@@ -1,6 +1,6 @@
 {
   "appId": "xyz.jacobclark.compoundinterest",
-  "appName": "Compound",
+  "appName": "CompoundInterest",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "build",
