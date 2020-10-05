@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,28 +10,40 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
 
 import DetailsForm from './components/DetailsForm';
 import Overview from './components/Overview';
 import Visualise from './components/Visualise';
 
+import { Plugins } from '@capacitor/core';
+
+const { Network, Toast } = Plugins;
+
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://jacobclark.xyz/">
-        Jacob Clark
-      </Link>{' '}
-      {'& '}
-      <Link color="inherit" href="http://github.com/chrisgrounds/">
-        Chris Grounds
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <span>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Version 1.0'}
+      </Typography>
+      <br />
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Built by '}
+        <Link color="inherit" href="https://jacobclark.xyz/">
+          Jacob Clark
+        </Link>{' '}
+        {'& '}
+        <Link color="inherit" href="http://github.com/chrisgrounds/">
+          Chris Grounds
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    </span>
   );
 }
 
@@ -74,27 +86,35 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  list: {
+    width: 250,
+    paddingTop: 'env(safe-area-inset-top)'
+  },
+  fullList: {
+    width: 'auto',
+  },
 }));
 
 const steps = ['Details', 'Overview', 'Visualisation'];
 
-const stepContent = {
-  0: (setData, data) => <DetailsForm setData={setData} data={data} />,
-  1: (setData, data) => <Overview setData={setData} data={data} />,
-  2: (_setData, data) => <Visualise data={data}/>
-}
+const stepContents = [
+  (setData, data) => <DetailsForm setData={setData} data={data} />,
+  (setData, data) => <Overview setData={setData} data={data} />,
+  (_setData, data) => <Visualise data={data}/>
+];
 
-function getStepContent(step, setData, data) {
+function getStepContent(step, setData, data, setActiveStep) {
   try {
-    return stepContent[step](setData, data);
-  } catch (error) {
-    throw new Error('Unknown step');
+    return stepContents[step](setData, data);
+  } catch (_e) {
+    return setActiveStep(0);
   }
 }
 
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [connected, setConnected] = React.useState(false);
 
   const [data, setData] = React.useState({
     balance: undefined,
@@ -104,22 +124,75 @@ export default function Checkout() {
     lengthOfTime: undefined,
     value: undefined,
     history: [],
+    error: false,
+    dirty: false,
+    left: false
   });
 
+  useEffect(() => {
+    (async function x() {
+      const networkStatus = await Network.getStatus()
+      setConnected(networkStatus.connected);
+
+      if(!networkStatus.connected){
+        await Toast.show({
+          text: "Oops, you appear to be offline!",
+          duration: 'long',
+          position: 'center'
+        });
+      }
+    })();
+  })
+
   const handleNext = () => {
+    if(!data.balance || !data.interest || !data.monthlyPayments || !data.period || !data.lengthOfTime ){
+      setData({...data, dirty: true});
+      return;
+    }
     setActiveStep(activeStep + 1);
+  }
+
+  const handleBack = () => setActiveStep(activeStep - 1);
+
+  const toggleDrawer = (open) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setData({ ...data, "left": open });
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <div style={{ paddingTop: "20px" }}>
+        {Copyright()}
+      </div>
+    </div>
+  );
 
   return (
     <React.Fragment>
       <CssBaseline />
+      <SwipeableDrawer
+        anchor="left"
+        open={data["left"]}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+        disableSwipeToOpen={false}
+        disableBackdropTransition={true}
+      >
+        {list("left")}
+      </SwipeableDrawer>
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
@@ -140,7 +213,9 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {getStepContent(activeStep, setData, data)}
+
+            {getStepContent(activeStep, setData, data, setActiveStep)}
+
             <div className={classes.buttons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>
@@ -152,6 +227,7 @@ export default function Checkout() {
                 color="primary"
                 onClick={handleNext}
                 className={classes.button}
+                disabled={!connected}
               >
                 {activeStep === 0 && 'Calculate'}
                 {activeStep === 1 && 'Visualise'}
@@ -160,7 +236,6 @@ export default function Checkout() {
             </div>
           </React.Fragment>
         </Paper>
-        <Copyright />
       </main>
     </React.Fragment>
   );
